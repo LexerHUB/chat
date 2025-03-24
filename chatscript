@@ -1,0 +1,69 @@
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+local player = Players.LocalPlayer
+local playerGui = player:FindFirstChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+-- Create Frame (Styled & Movable)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 220, 0, 450)
+frame.Position = UDim2.new(0.5, -110, 0.5, -225)
+frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+frame.BorderSizePixel = 4 -- Increased border size
+frame.BorderColor3 = Color3.fromRGB(255, 170, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Create UI Corner (Rounded edges)
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = frame
+
+-- Create UI Stroke (Thicker Border Outline)
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Thickness = 4 -- Increased border thickness
+uiStroke.Color = Color3.fromRGB(255, 170, 0)
+uiStroke.Parent = frame
+
+-- Function to create buttons
+local function createButton(text, position)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 200, 0, 50)
+    button.Position = UDim2.new(0, 10, 0, position)
+    button.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.GothamBold
+    button.TextSize = 14
+    button.Text = text
+    button.Parent = frame
+    
+    -- Add rounded edges to buttons
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 8)
+    buttonCorner.Parent = button
+    
+    -- Add button outline
+    local buttonStroke = Instance.new("UIStroke")
+    buttonStroke.Thickness = 2 -- Slightly thicker button outline
+    buttonStroke.Color = Color3.fromRGB(255, 170, 0)
+    buttonStroke.Parent = button
+    
+    button.MouseButton1Click:Connect(function()
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(text, "All")
+    end)
+end
+
+-- Create buttons
+createButton("?addallfruits", 10)
+createButton("?addfruit", 70)
+createButton("?resetfruit", 130)
+createButton("?reset", 190)
+createButton("?test", 250)
+createButton("?tp", 310)
+createButton("?sit", 370)
+createButton("?cleartrade", 430)
